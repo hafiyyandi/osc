@@ -2,6 +2,7 @@ var 	onMouseDownMouseX = 0, onMouseDownMouseY = 0;
 var onPointerDownPointerX =0 ,onPointerDownPointerY =0;
 var lon = 0, onMouseDownLon = 0,lat = 0, onMouseDownLat = 0, phi = 0, theta = 0;
 var   isUserInteracting = false;
+var camX = -400;
 
 function activatePanoControl(){
 
@@ -49,5 +50,7 @@ function computeCameraOrientation() {
   camera3D.target.y = 500 * Math.cos( phi );
   camera3D.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
   camera3D.lookAt( camera3D.target );
+  console.log(camera3D.target.x+","+camera3D.target.y+","+camera3D.target.z);
+  camX = camera3D.target.x;
 
 }

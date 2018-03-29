@@ -7,6 +7,9 @@ var scene_field;
 var sceneNum = 1;
 var people;
 var texture;
+var paths = ['assets/deep.mp4','assets/person.mp4', 'assets/throw.mp4'];
+var pathcount = 0;
+var video;
 //go to  http://docs.mlab.com/ sign up and get get your own api Key and make your own db and collection
 var apiKey = "Wiy4-pPllHsL5Mrzq8DbHmpu0GTxdfks";
 var db = "osc";
@@ -47,21 +50,52 @@ function setUp3D(){
   var geometry = new THREE.SphereGeometry( 500, 60, 40 );
   //var geometry = new THREE.CylinderGeometry( 500, 500, 500, 60 );
   geometry.scale( - 1, 1, 1 );
-  var video = document.createElement( 'video' );
+  video = document.createElement( 'video' );
   video.crossOrigin = 'anonymous';
   video.width = 640;
   video.height = 360;
-  video.loop = true;
+  //video.loop = true;
   video.muted = true;
-  video.src = 'assets/deep.mp4';
+  video.src = paths[0];
   video.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
   video.play();
+  video.onended = endHandler;
   var texture = new THREE.VideoTexture( video );
   texture.minFilter = THREE.LinearFilter;
   texture.format = THREE.RGBFormat;
   var material   = new THREE.MeshBasicMaterial( { map : texture } );
   mesh = new THREE.Mesh( geometry, material );
   scene.add( mesh );
+}
+
+function endHandler (e){
+
+  if (pathcount == 0){
+    console.log(camX);
+    if (camX < -420 && camX > -520 ){ //if camera is looking at green screen 
+      console.log("PLAYING PERSON");
+      video.src = paths[1];
+      video.play();
+      pathcount++;
+      return;
+    } else {
+      video.src = paths[0];
+      video.play();
+      return;
+    }
+  }
+
+  if(pathcount == 1){
+    console.log("PLAYING THROW");
+    video.src = paths[2];
+    video.play();
+    video.loop = true;
+    pathcount++;
+    return;
+  }
+
+
+ 
 }
 
 function draw(){  //there is a more official way to do this in three js
