@@ -2,7 +2,7 @@ var 	onMouseDownMouseX = 0, onMouseDownMouseY = 0;
 var onPointerDownPointerX =0 ,onPointerDownPointerY =0;
 var lon = 0, onMouseDownLon = 0,lat = 0, onMouseDownLat = 0, phi = 0, theta = 0;
 var   isUserInteracting = false;
-var camX = -400;
+var camX = -490;
 
 function activatePanoControl(){
 
